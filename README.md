@@ -2,19 +2,16 @@
 
 ## Description
 
-
-
-
-
-
+A node module application that takes in information about employees on a software engineering team, then generates an HTML wepages displaying information about each person.
 
 ## User Story
+
 AS A manager
 I WANT to generate a webpage that displays my team's basic info
 SO THAT I have quick access to their emails and GitHub profiles
 
-
 ## Acceptance Criteria
+
 GIVEN a command-line application that accepts user input
 WHEN I am prompted for my team members and their information
 THEN an HTML file is generated that displays a nicely formatted team roster based on user input
@@ -35,9 +32,8 @@ THEN I exit the application, and the HTML is generated
 
 ## Usage
 
-
 ## Visuals
 
-
 ## Credits
+
 Andrey Shestopal
