@@ -1,5 +1,7 @@
 # Team-Profile-Generator
 
+##
+
 ## Description
 
 A node module application that takes in information about employees on a software engineering team, then generates an HTML wepages displaying information about each person.
@@ -32,7 +34,10 @@ THEN I exit the application, and the HTML is generated
 
 ## Usage
 
+
 ## Visuals
+
+ <img src="../images/team profile screenshot.png" alt="screenshot">
 
 ## Credits
 

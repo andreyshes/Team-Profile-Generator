@@ -1,13 +1,12 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateMyTeam = require("./src/page-temp");
+const generateTeam = require("./src/page-temp");
 
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 
-const newMembers = [];
-
+const newStaffMemberData = [];
 const questions = async () => {
 	const answers = await inquirer.prompt([
 		{
@@ -32,59 +31,60 @@ const questions = async () => {
 			choices: ["Engineer", "Intern", "Manager"],
 		},
 	]);
-};
 
-if (answers.role === "Manager") {
-	const managerAns = await inquirer.prompt([
-		{
-			type: "input",
-			message: "What is your office number",
-			name: "officeNumber",
-		},
-	]);
-	const newManager = new Manager(
-		answers.name,
-		answers.id,
-		answers.email,
-		managerAns.officeNumber
-	);
-	newStaffMemberData.push(newManager);
+	// if manager selected, answer these specific question
+	if (answers.role === "Manager") {
+		const managerAns = await inquirer.prompt([
+			{
+				type: "input",
+				message: "What is your office number",
+				name: "officeNumber",
+			},
+		]);
+		const newManager = new Manager(
+			answers.name,
+			answers.id,
+			answers.email,
+			managerAns.officeNumber
+		);
+		newStaffMemberData.push(newManager);
 
-	// if engineer selected answer these set of questions
-} else if (answers.role === "Engineer") {
-	const githubAns = await inquirer.prompt([
-		{
-			type: "input",
-			message: "What is your GitHub user name?",
-			name: "github",
-		},
-	]);
-	const newEngineer = new Engineer(
-		answers.name,
-		answers.id,
-		answers.email,
-		githubAns.github
-	);
-	newStaffMemberData.push(newEngineer);
+		// if engineer selected answer these set of questions
+	} else if (answers.role === "Engineer") {
+		const githubAns = await inquirer.prompt([
+			{
+				type: "input",
+				message: "What is your GitHub user name?",
+				name: "github",
+			},
+		]);
+		const newEngineer = new Engineer(
+			answers.name,
+			answers.id,
+			answers.email,
+			githubAns.github
+		);
+		newStaffMemberData.push(newEngineer);
 
-	// if intern selected answer these set of questions
-} else if (answers.role === "Intern") {
-	const internAns = await inquirer.prompt([
-		{
-			type: "input",
-			message: "What university did you attend?",
-			name: "school",
-		},
-	]);
+		// if intern selected answer these set of questions
+	} else if (answers.role === "Intern") {
+		const internAns = await inquirer.prompt([
+			{
+				type: "input",
+				message: "What university did you attend?",
+				name: "school",
+			},
+		]);
 
-	const newIntern = new Intern(
-		answers.name,
-		answers.id,
-		answers.email,
-		internAns.school
-	);
-	newStaffMemberData.push(newIntern);
-}
+		const newIntern = new Intern(
+			answers.name,
+			answers.id,
+			answers.email,
+			internAns.school
+		);
+		newStaffMemberData.push(newIntern);
+	}
+}; //end of questions function
 
 async function promptQuestions() {
 	await questions();
@@ -109,7 +109,7 @@ promptQuestions();
 function createTeam() {
 	console.log("new guy", newStaffMemberData);
 	fs.writeFileSync(
-		"./output/index.html",
+		"./dist/index.html",
 		generateTeam(newStaffMemberData),
 		"utf-8"
 	);
